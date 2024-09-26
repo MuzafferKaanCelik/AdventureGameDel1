@@ -1,7 +1,7 @@
 public class Room {
 
-    private int roomNumber;
-    private String roomDescription;
+    private final int roomNumber;
+    private final String roomDescription;
     private Room north;
     private Room west;
     private Room south;

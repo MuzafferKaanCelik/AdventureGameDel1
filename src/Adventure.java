@@ -7,11 +7,12 @@ public class Adventure {
     private void buildMap() {
         Room room1 = new Room(1, "A cave like room with nothing in it, the bedrock flooring is tiled and the walls spiky.\n" +
                 "Some of the spikes have dead bodies or pierced skulls on them and there are two doors well lit by a torch on each side.");
-        Room room2 = new Room(2, "A Very large room compared to room 1. There is only one other door in this room besides the one you came from.\n" +
-                "The door is closed and has 7 colored spirits on it.\n" +
-                "The rest of the room consists of crimson red granite, there are platforms, ladders and gaps all over.\n" +
-                "The room is lit for about 5 seconds, then it turns dark for about 5 seconds.\n" +
-                "During dark time you seem to be able to spot some weaker lights scattered across the room which are the same colors as on the door.");
+        Room room2 = new Room(2, """
+                A Very large room compared to room 1. There is only one other door in this room besides the one you came from.
+                The door is closed and has 7 colored spirits on it.
+                The rest of the room consists of crimson red granite, there are platforms, ladders and gaps all over.
+                The room is lit for about 5 seconds, then it turns dark for about 5 seconds.
+                During dark time you seem to be able to spot some weaker lights scattered across the room which are the same colors as on the door.""");
         Room room3 = new Room(3, "Description of room three");
         Room room4 = new Room(4, "Description of room four");
         Room room5 = new Room(5, "Description of room five");
@@ -77,14 +78,15 @@ public class Adventure {
         System.out.println("Welcome to Hellscape!");
         System.out.println();
 
-        System.out.println("In your former life you were a very bad person.\n" +
-                "When your time finally came you saw nothing,but darkness.\n" +
-                "Your body and mind were conscious, but you were unable to move a muscle.\n" +
-                "It felt like you were falling and it felt like an eternity, for a long time nothing happened and you had completely lost track of time.\n" +
-                "Thinking to yourself that this was all death was, you decide to close your eyes and accept the fate you were given.\n" +
-                "After what felt like months of falling, a bright flame sparks in front of you.\n" +
-                "Even through your closed eyelids the light is blinding.\n" +
-                "You open your eyes and see a menacing figure towering over you.");
+        System.out.println("""
+                In your former life you were a very bad person.
+                When your time finally came you saw nothing,but darkness.
+                Your body and mind were conscious, but you were unable to move a muscle.
+                It felt like you were falling and it felt like an eternity, for a long time nothing happened and you had completely lost track of time.
+                Thinking to yourself that this was all death was, you decide to close your eyes and accept the fate you were given.
+                After what felt like months of falling, a bright flame sparks in front of you.
+                Even through your closed eyelids the light is blinding.
+                You open your eyes and see a menacing figure towering over you.""");
         System.out.println();
         System.out.println("-Greetings friend");
         System.out.println();
@@ -95,27 +97,30 @@ public class Adventure {
         System.out.println("-Sooo i see we have another tough nut to crack, not everyone survives that fall you know although i'm\n" +
                 "sure you'll soon wish that you had perished from it.");
         System.out.println();
-        System.out.println("Your mouth is sealed shut. Being unable to speak you instead try to get a hold of your surroundings.\n" +
-                "Having had your eyes closed for so long you can only make out the glowing figure in front of you.\n" +
-                "A humanoid being with red skin, the horns and lower body of a ram, the torso and head of a man.\n" +
-                "The set of teeth in his maw are like a shark's, the beard looks like a goat's, his head is bald\n" +
-                "and the ears are pointy like an elf, from his eye sockets comes a radiant yellow glow.\n" +
-                "The figure smiles and yells.");
+        System.out.println("""
+                Your mouth is sealed shut. Being unable to speak you instead try to get a hold of your surroundings.
+                Having had your eyes closed for so long you can only make out the glowing figure in front of you.
+                A humanoid being with red skin, the horns and lower body of a ram, the torso and head of a man.
+                The set of teeth in his maw are like a shark's, the beard looks like a goat's, his head is bald
+                and the ears are pointy like an elf, from his eye sockets comes a radiant yellow glow.
+                The figure smiles and yells.""");
         System.out.println();
         System.out.println("-WELCOME TO HELL!");
         System.out.println();
         System.out.println("You look confused, you never really believed in all that heaven and hell stuff.\n" +
                 "The devil in front of you smirks.");
         System.out.println();
-        System.out.println("-I'm Satan and your remorseless soul WILL KNOW AGONY!\n" +
-                "This is my humble dungeon and beyond this room lies 7 gruelling tasks.\n" +
-                "If you prevail successful with all 7 of them i may or may not be able to give you another shot at life.");
+        System.out.println("""
+                -I'm Satan and your remorseless soul WILL KNOW AGONY!
+                This is my humble dungeon and beyond this room lies 7 gruelling tasks.
+                If you prevail successful with all 7 of them i may or may not be able to give you another shot at life.""");
         System.out.println();
-        System.out.println("Satan bursts out into yet another spark before disappearing before your very eyes.\n" +
-                "You finally muster up the strength to get yourself standing.\n" +
-                "As you get to your senses the room you are standing in becomes clearer, you are in a squared room.\n" +
-                "There are two doors in the room, each door has a torch on each side.\n" +
-                "As you look around you realize that there is not really anything in this room, what do you do now?");
+        System.out.println("""
+                Satan bursts out into yet another spark before disappearing before your very eyes.
+                You finally muster up the strength to get yourself standing.
+                As you get to your senses the room you are standing in becomes clearer, you are in a squared room.
+                There are two doors in the room, each door has a torch on each side.
+                As you look around you realize that there is not really anything in this room, what do you do now?""");
         System.out.println();
 
         boolean gameStarted = false;
