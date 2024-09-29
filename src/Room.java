@@ -1,59 +1,55 @@
 public class Room {
 
-    private final int roomNumber;
-    private final String roomDescription;
+    private String roomName;
+    private String roomDescription;
     private Room north;
-    private Room west;
     private Room south;
     private Room east;
+    private Room west;
 
-    public Room(int roomNumber, String roomDescription) {
-        this.roomNumber = roomNumber;
+
+    public Room(String roomName, String roomDescription) {
+        this.roomName = roomName;
         this.roomDescription = roomDescription;
-
-    }
-
-    public void setNorth(Room north) {
-        this.north = north;
-    }
-
-    public void setWest(Room west) {
-        this.west = west;
-    }
-
-    public void setSouth(Room south) {
-        this.south = south;
-    }
-
-    public void setEast(Room east) {
-        this.east = east;
     }
 
     public Room getNorth() {
         return north;
     }
 
-    public Room getWest() {
-        return west;
+    public void setNorth(Room north) {
+        this.north = north;
     }
 
     public Room getSouth() {
         return south;
     }
 
+    public void setSouth(Room south) {
+        this.south = south;
+    }
+
     public Room getEast() {
         return east;
     }
 
-    public int getRoomNumber() {
-        return roomNumber;
+    public void setEast(Room east) {
+        this.east = east;
+    }
+
+    public Room getWest() {
+        return west;
+    }
+
+    public void setWest(Room west) {
+        this.west = west;
+    }
+
+    public String getRoomName() {
+        return roomName;
     }
 
     public String getRoomDescription() {
         return roomDescription;
-    }
-
-    public void LOOK() {
-        System.out.println("You're in room" + roomNumber + " " + roomDescription);
     }
 }
