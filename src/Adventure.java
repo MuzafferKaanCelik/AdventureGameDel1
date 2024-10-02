@@ -5,8 +5,8 @@ public class Adventure {
 
 
     public Adventure() {
-        this.map = new Map();
-        this.Jack = new Player(map.getTheFirstRoom());
+        map = new Map();
+        Jack = new Player(map.getTheFirstRoom());
     }
 
     public String getCurrentRoomName() {
@@ -31,5 +31,17 @@ public class Adventure {
 
     public Player getJack() {
         return Jack;
+    }
+    public String getCurrentRoomDetails(){
+        return Jack.getCurrentRoom().toString();
+    }
+    public boolean dropItem (String itemToDrop){
+        return Jack.dropItem(itemToDrop);
+    }
+    public Boolean takeItem(String itemToTake){
+        return Jack.takeItem(itemToTake);
+    }
+    public String findItem(){
+        return Jack.findItem();
     }
 }

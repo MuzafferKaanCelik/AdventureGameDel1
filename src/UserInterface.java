@@ -66,14 +66,16 @@ public class UserInterface {
         userinput = "";
         while (!userinput.equalsIgnoreCase("EXIT")) {
             userinput = input.nextLine();
-            switch (userinput) {
+            String[] commandUserInput = userinput.split(" ");
+            switch (commandUserInput[0]) {
                 case "START":
-                    System.out.println(adventure.getCurrentRoomName() + ", " + adventure.getCurrentRoomDescription());
+                    System.out.println(adventure.getCurrentRoomDetails());
                     break;
+
                 case "LOOK":
-                    System.out.println("room: " + adventure.getCurrentRoomName() +
-                            "\nbeskrivelse: " + adventure.getCurrentRoomDescription());
+                    System.out.println(adventure.getCurrentRoomDetails());
                     break;
+                    
                 case "HELP":
                     System.out.println("""
                             COMMAND LIST:\s
@@ -84,23 +86,38 @@ public class UserInterface {
                             'EXIT' - to close the game.
                             'LOOK' - to get room number and description again.""");
                     break;
-                case "go north":
-                case "go south":
-                case "go east":
-                case "go west":
-                    if (adventure.canJackMove(userinput)) {
-                        adventure.moveJackToRoom(userinput);
-                        System.out.println("you " + userinput);
-                    } else {
-                        System.out.println("you can't " + userinput + " from here");
-                    }
-                    System.out.println("In room " + adventure.getCurrentRoomName() + ", " + adventure.getCurrentRoomDescription());
+                case "take":
+                    if (adventure.takeItem(commandUserInput[1])) {
+                        System.out.println("you have pick up the " + commandUserInput[1] + " from the room");
+                    }else {
+                        System.out.println("There is no such thing as a"+ commandUserInput[1]+" in this room");
+                }
                     break;
-                case "exit":
+
+                case "drop":
+                    if (adventure.dropItem(commandUserInput[1])) {
+                        System.out.println("You have dropped the" + commandUserInput[1] + " in " + adventure.getCurrentRoomName());
+                    }else {
+                        System.out.println("You do not have " + commandUserInput[1] + " in your inventory");
+                    }
+                    break;
+                case "inventory":
+                    System.out.println(adventure.findItem());
+                    break;
+                case "go":
+                    if (adventure.canJackMove(commandUserInput[1])) {
+                        adventure.moveJackToRoom(commandUserInput[1]);
+                        System.out.println("you head" + commandUserInput[1]);
+                    } else {
+                        System.out.println("you can't " + commandUserInput[1] + " from here");
+                    }
+                    System.out.println(adventure.getCurrentRoomDetails());
+                    break;
+                case "EXIT":
                     break;
 
                 default:
-                    System.out.println("Unknown command. Type 'help' for a list of possible commands.");
+                    System.out.println("Invalid command. Type 'HELP' for a list of possible commands.");
 
             }
         }

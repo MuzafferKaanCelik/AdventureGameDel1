@@ -6,14 +6,13 @@ public class Map {
     }
     public void buildMap() {
 
-        Room room1 = new Room("1", "A cave like room with nothing in it, the bedrock flooring is tiled and the walls spiky\n" +
+        Room room1 = new Room("1", "A cave like room with nothing in it, the bedrock flooring is tiled and the walls are spiky\n" +
                 "                Some of the spikes have dead bodies or pierced skulls on them and there are two doors well lit by a torch on each side.");
         Room room2 = new Room("2", """
-                 A Very large room compared to room 1. There is only one other door in this room besides the one you came from.
+                A Very large room compared to room 1. There is only one other door in this room besides the one you came from.
                 The door is closed and has 7 colored spirits on it.
                 The rest of the room consists of crimson red granite, there are platforms, ladders and gaps all over.
-                The room is lit for about 5 seconds, then it turns dark for about 5 seconds.
-                During dark time you seem to be able to spot some weaker lights scattered across the room which are the same colors as on the door.""");
+                Jack seems to be able to spot some weaker lights scattered across the room which are the same colors as on the door.""");
         Room room3 = new Room("3", "description of room 3");
         Room room4 = new Room("4", "description of room 4");
         Room room5 = new Room("5", "description of room 5");
@@ -68,9 +67,19 @@ public class Map {
         room9.setSouth(null);
         room9.setEast(null);
         room9.setWest(room8);
+
+        room2.addItem("Soul of Envy", " a shiny green soul that symbolizes the sin or envy.");
+        room2.addItem("Soul of Pride", " a shiny violet soul that symbolizes the sin or pride.");
+        room2.addItem("Soul of Wrath", " a shiny red soul that symbolizes the sin or wrath.");
+        room2.addItem("Soul of Sloth", " a shiny light blue soul that symbolizes the sin or sloth.");
+        room2.addItem("Soul of Lust", " a shiny blue soul that symbolizes the sin or lust.");
+        room2.addItem("Soul of Greed", " a shiny yellow soul that symbolizes the sin or wrath.");
+        room2.addItem("Soul of Gluttony", " a shiny orange soul that symbolizes the sin or gluttony.");
+
     }
 
     public Room getTheFirstRoom() {
         return this.theFirstRoom;
     }
 }
+

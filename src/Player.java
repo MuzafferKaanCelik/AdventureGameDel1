@@ -1,5 +1,8 @@
+import java.util.ArrayList;
+
 public class Player {
     private Room theRoomIamIn;
+    private ArrayList<Item> JackItems = new ArrayList<>();
 
 
     public Player(Room firstRoom) {
@@ -28,6 +31,44 @@ public class Player {
         }
     }
 
+    public Item findItem (String findItem){
+        for (Item item:JackItems){
+            if (item.getItem().equalsIgnoreCase(findItem)){
+                return item;
+            }
+        }
+        return null;
+    }
+    public boolean dropItem(String itemToDrop){
+        Item variable = findItem(itemToDrop);
+        if (variable == null){
+            return false;
+
+        }
+        JackItems.remove(variable);
+        theRoomIamIn.addItem(variable);
+        return true;
+    }
+
+    public Boolean takeItem(String itemToTake){
+        Item variableItem = theRoomIamIn.findItemInRoom(itemToTake);
+        if (variableItem==null){
+            return false;
+        }
+        JackItems.add(variableItem);
+        theRoomIamIn.removeItemFromList(variableItem);
+        return true;
+    }
+
+    public String findItem(){
+        int counter = 1;
+        String empty = "";
+        for (Item currentItem : JackItems){
+            empty += "\n"+ counter++ + ". " + currentItem.getItem() + currentItem.getItemDescription();
+        }
+        return empty;
+    }
+
     public void goToNorthRoom() {
         theRoomIamIn = theRoomIamIn.getNorth();
     }
@@ -44,7 +85,7 @@ public class Player {
         theRoomIamIn = theRoomIamIn.getWest();
     }
 
-    public String whereRU() {
+    public String whereAreYou() {
         return theRoomIamIn.getRoomName();
     }
 
@@ -54,6 +95,10 @@ public class Player {
 
     public String getCurrentRoomDescription() {
         return theRoomIamIn.getRoomDescription();
+    }
+
+    public Room getCurrentRoom(){
+        return theRoomIamIn;
     }
 
 }
