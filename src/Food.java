@@ -1,12 +1,13 @@
 public class Food extends Item {
-    int HealthAndDamage;
 
-    public Food(String Item, String ItemDescription, int HealthAndDamage){
-        super(Item,ItemDescription);
-        this.HealthAndDamage=HealthAndDamage;
+    private int hitPoints;
+
+    public Food(String food, String foodDescription, int hitPoints){
+        super(food,foodDescription);
+        this.hitPoints = hitPoints;
     }
 
-    public int getHealthAndDamage() {
-        return HealthAndDamage;
+    public int getHitPoints(){
+        return hitPoints;
     }
 }

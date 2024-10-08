@@ -1,3 +1,5 @@
+// User interface class to interact with the player via command-line input.
+
 import java.util.Scanner;
 
 public class UserInterface {
@@ -5,15 +7,17 @@ public class UserInterface {
     Adventure adventure;
 
     public UserInterface() {
-        this.adventure = new Adventure();
+        adventure = new Adventure();
     }
+
+
     public void StartGame() {
+
 
         Scanner input = new Scanner(System.in);
 
         String userinput;
-
-        System.out.println("Welcome to Jack Hellscape.");
+        System.out.println("Welcome to Jack Hellscape!");
         System.out.println();
         System.out.println("""
                 In Jack's former life he was a very bad person.
@@ -59,50 +63,123 @@ public class UserInterface {
                 There are two doors in the room, each door has a torch on each side.
                 As Jack looks around he realizes that there is not really anything in this room, what does he do now?""");
         System.out.println();
-
-
-
+        System.out.println(""" 
+                COMMAND LIST\
+                
+                'HELP' - if you want instructions or an overview of the commandos\
+                
+                'LOOK' - if you want to have the description of the current room.\
+                
+                'go north'
+                'go south'
+                'go east'
+                'go west' - to move in whatever direction you want.\
+                
+                'EXIT' - if you want to exit the game.\
+                
+                'TAKE' + 'itemName' - to grab an item.\
+                
+                'DROP' + 'itemName' - to drop an item.\
+                
+                'INVENTORY' - to get a list of items you carry.\
+                
+                'HEALTH' - to see your health in the game.\
+                
+                'EAT' - to eat an item in the current room or from your inventory.""");
+        System.out.println();
+        System.out.println("Jack finds himself in room 1.");
+        System.out.println();
+        System.out.print("Type Start to begin>");
 
         userinput = "";
         while (!userinput.equalsIgnoreCase("EXIT")) {
             userinput = input.nextLine();
-            switch (userinput) {
-                case "START":
-                    System.out.println(adventure.getCurrentRoomName() + ", " + adventure.getCurrentRoomDescription());
+            String[] commandUserInput = userinput.split(" ");
+            switch (commandUserInput[0]) {
+                case "start", "START", "s", "Start":
+                    System.out.println(adventure.getCurrentRoomDetails());
                     break;
-                case "LOOK":
-                    System.out.println("room: " + adventure.getCurrentRoomName() +
-                            "\nbeskrivelse: " + adventure.getCurrentRoomDescription());
+                case "look","LOOK", "l","Look":
+                    System.out.println(adventure.getCurrentRoomDetails());
                     break;
-                case "HELP":
-                    System.out.println("""
-                            COMMAND LIST:\s
-                            'go north' - to go north.
-                            'go south' - to go south.
-                            'go east' - to go east.
-                            'go west' - to go west.
-                            'EXIT' - to close the game.
-                            'LOOK' - to get room number and description again.""");
+                case "help","HELP","h","Help":
+                    System.out.println(""" 
+                COMMAND LIST\
+                
+                'HELP' - if you want instructions or an overview of the commandos\
+                
+                'LOOK' - if you want to have the description of the current room.\
+                
+                'go north'
+                'go south'
+                'go east'
+                'go west' - to move in whatever direction you want.\
+                
+                'EXIT' - if you want to exit the game.\
+                
+                'TAKE' + 'itemName' - to grab an item.\
+                
+                'DROP' + 'itemName' - to drop an item.\
+                
+                'INVENTORY' - to get a list of items you carry.\
+                
+                'HEALTH' - to see your health in the game.\
+                
+                'EAT' - to eat an item in the current room or from your inventory.""");
                     break;
-                case "go north":
-                case "go south":
-                case "go east":
-                case "go west":
-                    if (adventure.canJackMove(userinput)) {
-                        adventure.moveJackToRoom(userinput);
-                        System.out.println("you " + userinput);
-                    } else {
-                        System.out.println("you can't " + userinput + " from here");
+                case "eat","EAT","Eat","e":
+                    foodToEat isItFood = adventure.canJackEat(commandUserInput[1]+" "+commandUserInput[2]);
+                    switch (isItFood) {
+                        case EDIBLE:
+                            System.out.println("You take the " + commandUserInput[1]+" "+commandUserInput[2]);
+                            break;
+                        case NOT_FOUND:
+                            System.out.println("No food in the room or inventory");
+                            break;
+                        case NOT_FOOD:
+                            System.out.println("That's not edible");
+                        default:
                     }
-                    System.out.println("In room " + adventure.getCurrentRoomName() + ", " + adventure.getCurrentRoomDescription());
                     break;
-                case "exit":
+                case "health","HEALTH","hp","Health":
+                    System.out.println(adventure.jackHealth());
                     break;
-
+                case "take","TAKE","t","Take":
+                    if (adventure.takeItem(commandUserInput[1])) {
+                        System.out.println("You pick up the " + commandUserInput[1]+" "+commandUserInput[2]+" "+commandUserInput[3] + " from the room");
+                    } else {
+                        System.out.println("theres no " + commandUserInput[1]+" "+commandUserInput[2]+" "+commandUserInput[3] + " in the room");
+                    }
+                    break;
+                case "drop","DROP","d","Drop":
+                    if (adventure.dropItem(commandUserInput[1])) {
+                        System.out.println("you drop the " + commandUserInput[1]+" "+commandUserInput[2]+" "+commandUserInput[3] + " in " + adventure.getCurrentRoomName());
+                    } else {
+                        System.out.println("you don't have a " + commandUserInput[1]+" "+commandUserInput[2]+" "+commandUserInput[3] + " in your inventory");
+                    }
+                    break;
+                case "inventory", "inv", "i","INVENTORY":
+                    System.out.println(adventure.findItem());
+                    break;
+                case "go":
+                    if (adventure.canJackMove(commandUserInput[1])) {
+                        adventure.moveJackToRoom(commandUserInput[1]);
+                        System.out.println("you go " + commandUserInput[1]);
+                    } else {
+                        System.out.println("you can't go " + commandUserInput[1] + " from here");
+                    }
+                    System.out.println(adventure.getCurrentRoomDetails());
+                    break;
+                case "EXIT":
+                    break;
                 default:
-                    System.out.println("Unknown command. Type 'help' for a list of possible commands.");
-
+                    System.out.println("Invalid command. Type 'HELP' or 'h' for a list of possible commands.");
+            }
+            if (adventure.getJack().getHitPoints() <= 0) {
+                System.out.println("YOU FACE DOOM! GOOD LUCK IN YOUR NEXT DEATH!");
+                break;
             }
         }
     }
 }
+

@@ -1,22 +1,22 @@
 public class Item {
-    private String Item;
-    private String ItemDescription;
+    private String item;
+    private String itemDescription;
 
-    public Item(String Item, String ItemDescription) {
-        this.Item = Item;
-        this.ItemDescription = ItemDescription;
+    public Item(String item, String itemBeskrivelse) {
+        this.item = item;
+        this.itemDescription = itemBeskrivelse;
     }
 
     public String getItem() {
-        return Item;
+        return item;
     }
 
     public String getItemDescription() {
-        return ItemDescription;
+        return itemDescription;
     }
 
     @Override
     public String toString() {
-        return Item +" "+ ItemDescription;
+        return item + " " + itemDescription;
     }
 }
