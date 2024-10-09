@@ -68,16 +68,22 @@ public class Map {
 
         room2.addItem("Soul of Envy", " - A deep green soul that symbolizes the sin of envy.");
         room2.addFood("Green pill", " - A menacing green pill", -1);
+
         room3.addItem("Soul of Pride", " - A gloomy violet soul that symbolizes the sin of pride.");
         room3.addFood("violet pill", " - A menacing violet pill", -3);
+
         room4.addItem("Soul of Wrath", " - A gloomy violet soul that symbolizes the sin of wrath.");
         room4.addFood("Red pill", " - A menacing red pill", 1);
+
         room6.addItem("Soul of Sloth", " - A bright blue soul that symbolizes the sin of sloth.");
         room6.addFood("Azure pill", " - A menacing azure pill", 2);
+
         room7.addItem("Soul of Lust", " - A dark blue soul that symbolizes the sin of lust.");
         room7.addFood("Blue pill", " - A menacing blue pill", 2);
+
         room8.addItem("Soul of Greed", " - A bright yellow soul that symbolizes the sin of greed.");
         room8.addFood("Yellow pill", " - A menacing yellow pill", -2);
+
         room9.addItem("Soul of Gluttony", " - A deep orange soul that symbolizes the sin of gluttony.");
         room9.addFood("Orange pill", " - A menacing Orange pill", 1);
     }

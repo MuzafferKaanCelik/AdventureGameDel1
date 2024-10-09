@@ -2,9 +2,9 @@ public class Item {
     private String item;
     private String itemDescription;
 
-    public Item(String item, String itemBeskrivelse) {
+    public Item(String item, String itemDescription) {
         this.item = item;
-        this.itemDescription = itemBeskrivelse;
+        this.itemDescription = itemDescription;
     }
 
     public String getItem() {

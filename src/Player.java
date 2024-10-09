@@ -2,7 +2,9 @@ import java.util.ArrayList;
 
 public class Player {
     private Room theRoomIamIn;
-    private ArrayList<Item> jackItems = new ArrayList<>();
+    private static ArrayList<Item> inventory = new ArrayList<>();
+    private static ArrayList<Item> equipped = new ArrayList<>();
+    public static Weapon currentEquipped;
     private int jackHitPoints;
 
     public Player(Room firstRoom) {
@@ -10,14 +12,17 @@ public class Player {
         jackHitPoints = 1;
     }
 
-    /*public void setJackHitPoints(int newHitPoints) {
-        if (newHitPoints > 3) {
-            this.jackHitPoints = 3;
-        } else {
-            this.jackHitPoints = newHitPoints;
-        }
-    } mangler hp limiter*/
+    public void setJackOverHeal(int newOverHeal) {
+        this.jackHitPoints = Math.min(newOverHeal, 3);
+    }
 
+    public ArrayList<Item> getEquipped() {
+        return equipped;
+    }
+
+    public static Item getCurrentEquipped() {
+        return currentEquipped;
+    }
 
     public String jackHealth() {
         if (this.jackHitPoints == 1) {
@@ -27,14 +32,13 @@ public class Player {
             return this.jackHitPoints + "HP. You can somehow survive a lethal attack that is incredible!";
         } else if (this.jackHitPoints == 3) {
             return this.jackHitPoints + "HP. You have some how been blessed by the gods, even though you are in hell.\n" +
-                    "You can take 2 hits without dying!";
-        } else {
-            return this.jackHitPoints+"HP. The HP limit is 3";
+                    "You can take 2 hits without dying!(The HP limit is 3)";
         }
+        return null;
     }
 
-    public Item findItemInInventory(String eatItem) {
-        for (Item item : jackItems) {
+    public static Item findItemInInventory(String eatItem) {
+        for (Item item : inventory) {
             if (item.getItem().equalsIgnoreCase(eatItem)) {
                 return item;
             }
@@ -42,8 +46,8 @@ public class Player {
         return null;
     }
 
-    public void removeFromInventory(Item itemToEat) {
-        jackItems.remove(itemToEat);
+    public  void removeFromInventory(Item itemToEat) {
+        inventory.remove(itemToEat);
     }
 
     public foodToEat jackEats(String eating) {
@@ -55,8 +59,9 @@ public class Player {
         if (itemToEat == null) {
             return foodToEat.NOT_FOUND;
         } else if (itemToEat instanceof Food) {
-            jackHitPoints = jackHitPoints + ((Food) itemToEat).getHitPoints();
-            if (jackItems.contains(itemToEat)) {
+            int hitPointsFromFood = ((Food) itemToEat).getHitPoints();
+            setJackOverHeal(jackHitPoints + hitPointsFromFood);
+            if (inventory.contains(itemToEat)) {
                 removeFromInventory(itemToEat);
             } else {
                 theRoomIamIn.removeItemFromList(itemToEat);
@@ -95,7 +100,7 @@ public class Player {
     }
 
     public Item findItem(String findItem) {
-        for (Item item : jackItems) {
+        for (Item item : inventory) {
             if (item.getItem().equalsIgnoreCase(findItem)) {
                 return item;
             }
@@ -108,7 +113,7 @@ public class Player {
         if (variable == null) {
             return false;
         }
-        jackItems.remove(variable);
+        inventory.remove(variable);
         theRoomIamIn.addItem(variable);
         return true;
     }
@@ -118,7 +123,7 @@ public class Player {
         if (variableitem == null) {
             return false;
         }
-        jackItems.add(variableitem);
+        inventory.add(variableitem);
         theRoomIamIn.removeItemFromList(variableitem);
         return true;
     }
@@ -126,7 +131,7 @@ public class Player {
     public String findItem() {
         int counter = 1;
         String empty = "";
-        for (Item currentItem : jackItems) {
+        for (Item currentItem : inventory) {
             empty += "\n" + counter++ + ". " + currentItem.getItem() + currentItem.getItemDescription();
         }
         return empty;
@@ -142,6 +147,37 @@ public class Player {
 
     public int getHitPoints() {
         return jackHitPoints;
+    }
+
+    public static WeaponsToUse equip (String weaponName) {
+        Item weaponEquip = findItemInInventory(weaponName);
+        if (weaponEquip == null) {
+            return WeaponsToUse.NOT_IN_INVENTORY;
+
+
+        }
+        if (weaponEquip instanceof Weapon) {
+            Weapon weapon = (Weapon) weaponEquip;
+            inventory.remove(weapon);
+            equipped.add(weapon);
+            currentEquipped = weapon;
+            return WeaponsToUse.WEAPON;
+        } else if (!(weaponEquip instanceof Weapon)) {
+            return WeaponsToUse.NOT_WEAPON;
+        }
+        return WeaponsToUse.NOT_WEAPON;
+    }
+
+    public static WeaponsToUse attack() {
+        Weapon weapon = currentEquipped;
+        if (weapon == null) {
+            return WeaponsToUse.NOT_EQUIPPED;
+        } else if (weapon.canEquip()) {
+            weapon.equip();
+            return WeaponsToUse.EQUIPPED;
+        } else {
+            return WeaponsToUse.NO_AMMO;
+        }
     }
 }
 

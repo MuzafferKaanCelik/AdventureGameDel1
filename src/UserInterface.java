@@ -99,39 +99,39 @@ public class UserInterface {
                 case "start", "START", "s", "Start":
                     System.out.println(adventure.getCurrentRoomDetails());
                     break;
-                case "look","LOOK", "l","Look":
+                case "look", "LOOK", "l", "Look":
                     System.out.println(adventure.getCurrentRoomDetails());
                     break;
-                case "help","HELP","h","Help":
+                case "help", "HELP", "h", "Help":
                     System.out.println(""" 
-                COMMAND LIST\
-                
-                'HELP' - if you want instructions or an overview of the commandos\
-                
-                'LOOK' - if you want to have the description of the current room.\
-                
-                'go north'
-                'go south'
-                'go east'
-                'go west' - to move in whatever direction you want.\
-                
-                'EXIT' - if you want to exit the game.\
-                
-                'TAKE' + 'itemName' - to grab an item.\
-                
-                'DROP' + 'itemName' - to drop an item.\
-                
-                'INVENTORY' - to get a list of items you carry.\
-                
-                'HEALTH' - to see your health in the game.\
-                
-                'EAT' - to eat an item in the current room or from your inventory.""");
+                            COMMAND LIST\
+                            
+                            'HELP' - if you want instructions or an overview of the commandos\
+                            
+                            'LOOK' - if you want to have the description of the current room.\
+                            
+                            'go north'
+                            'go south'
+                            'go east'
+                            'go west' - to move in whatever direction you want.\
+                            
+                            'EXIT' - if you want to exit the game.\
+                            
+                            'TAKE' + 'itemName' - to grab an item.\
+                            
+                            'DROP' + 'itemName' - to drop an item.\
+                            
+                            'INVENTORY' - to get a list of items you carry.\
+                            
+                            'HEALTH' - to see your health in the game.\
+                            
+                            'EAT' - to eat an item in the current room or from your inventory.""");
                     break;
-                case "eat","EAT","Eat","e":
-                    foodToEat isItFood = adventure.canJackEat(commandUserInput[1]+" "+commandUserInput[2]);
+                case "eat", "EAT", "Eat", "e":
+                    foodToEat isItFood = adventure.canJackEat(commandUserInput[1] + " " + commandUserInput[2]);
                     switch (isItFood) {
                         case EDIBLE:
-                            System.out.println("You take the " + commandUserInput[1]+" "+commandUserInput[2]);
+                            System.out.println("You take the " + commandUserInput[1] + " " + commandUserInput[2]);
                             break;
                         case NOT_FOUND:
                             System.out.println("No food in the room or inventory");
@@ -141,24 +141,24 @@ public class UserInterface {
                         default:
                     }
                     break;
-                case "health","HEALTH","hp","Health":
+                case "health", "HEALTH", "hp", "Health":
                     System.out.println(adventure.jackHealth());
                     break;
-                case "take","TAKE","t","Take":
+                case "take", "TAKE", "t", "Take":
                     if (adventure.takeItem(commandUserInput[1])) {
-                        System.out.println("You pick up the " + commandUserInput[1]+" "+commandUserInput[2]+" "+commandUserInput[3] + " from the room");
+                        System.out.println("You pick up the " + commandUserInput[1] + " " + commandUserInput[2] + " " + commandUserInput[3] + " from the room");
                     } else {
-                        System.out.println("theres no " + commandUserInput[1]+" "+commandUserInput[2]+" "+commandUserInput[3] + " in the room");
+                        System.out.println("theres no " + commandUserInput[1] + " " + commandUserInput[2] + " " + commandUserInput[3] + " in the room");
                     }
                     break;
-                case "drop","DROP","d","Drop":
+                case "drop", "DROP", "d", "Drop":
                     if (adventure.dropItem(commandUserInput[1])) {
-                        System.out.println("you drop the " + commandUserInput[1]+" "+commandUserInput[2]+" "+commandUserInput[3] + " in " + adventure.getCurrentRoomName());
+                        System.out.println("you drop the " + commandUserInput[1] + " " + commandUserInput[2] + " " + commandUserInput[3] + " in " + adventure.getCurrentRoomName());
                     } else {
-                        System.out.println("you don't have a " + commandUserInput[1]+" "+commandUserInput[2]+" "+commandUserInput[3] + " in your inventory");
+                        System.out.println("you don't have a " + commandUserInput[1] + " " + commandUserInput[2] + " " + commandUserInput[3] + " in your inventory");
                     }
                     break;
-                case "inventory", "inv", "i","INVENTORY":
+                case "inventory", "inv", "i", "INVENTORY":
                     System.out.println(adventure.findItem());
                     break;
                 case "go":
@@ -170,13 +170,40 @@ public class UserInterface {
                     }
                     System.out.println(adventure.getCurrentRoomDetails());
                     break;
+                case "attack", "ATTACK", "Attack", "a":
+                    String attackResult = adventure.attack();
+                    System.out.println(attackResult);
+                    break;
+                case "equip", "EQUIP", "Equip", "eq":
+                    if (commandUserInput.length > 1) {
+                        String itemToEquip = commandUserInput[1];
+
+                        WeaponsToUse equipResult = Player.equip(itemToEquip);
+                        switch (equipResult) {
+                            case WEAPON:
+                                System.out.println("You have equipped the " + itemToEquip + " as your weapon.");
+                                break;
+                            case NOT_IN_INVENTORY:
+                                System.out.println("You do not have a " + itemToEquip + " in your inventory.");
+                                break;
+                            case NOT_WEAPON:
+                                System.out.println("The item " + itemToEquip + " is not a weapon and cannot be equipped.");
+                                break;
+                            default:
+                                System.out.println("An unknown error occurred while trying to equip the item.");
+                                break;
+                        }
+                    } else {
+                        System.out.println("Please specify the item you want to equip.");
+                    }
+                    break;
                 case "EXIT":
                     break;
                 default:
                     System.out.println("Invalid command. Type 'HELP' or 'h' for a list of possible commands.");
             }
             if (adventure.getJack().getHitPoints() <= 0) {
-                System.out.println("YOU FACE DOOM! GOOD LUCK IN YOUR NEXT DEATH!");
+                System.out.println("-YOU FACE DOOM! GOOD LUCK IN YOUR NEXT DEATH!");
                 break;
             }
         }

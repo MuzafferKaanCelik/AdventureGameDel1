@@ -48,4 +48,26 @@ public class Adventure {
     public Player getJack(){
         return Jack;
     }
+    public Item seeCurrentEquipped(){
+        return Player.getCurrentEquipped();
+    }
+
+    public String equip(String itemName){
+        WeaponsToUse status = Player.equip(itemName);
+        return switch (status){
+            case WEAPON -> "You have equipped: " + itemName + Player.getCurrentEquipped();
+            case NOT_WEAPON -> "You can not equip that";
+            case NOT_IN_INVENTORY -> "You do not have that in your inventory";
+            default -> "Invalid command";
+        };
+    }
+    public String attack(){
+        WeaponsToUse status = Player.attack();
+        return switch (status){
+            case NOT_EQUIPPED -> "You do not have anything equipped and therefore can not attack";
+            case EQUIPPED -> "You attack "+ seeCurrentEquipped().getItem();
+            case NO_AMMO -> "You have no ammo";
+            default -> "Invalid command";
+        };
+    }
 }
