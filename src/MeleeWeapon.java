@@ -1,13 +1,20 @@
 public class MeleeWeapon extends Weapon {
-    public MeleeWeapon(String name, String description,int damage){
-        super(name,description,damage);
-    }
-    @Override
-    public boolean canEquip(){
-        return true;
-    }
-    @Override
-    public void equip(){
+
+    private int damagePoints;
+
+    public MeleeWeapon(String weaponName, String weaponDescription, int damagePoints) {
+        super(weaponName, weaponDescription);
+        this.damagePoints = damagePoints;
     }
 
+
+    public int getDamagePoints() {
+        return damagePoints;
+    }
+
+
+    @Override
+    Item weapon(String weaponName, String weaponDescription, int damagePoints) {
+        return null;
+    }
 }

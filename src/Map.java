@@ -8,7 +8,7 @@ public class Map {
     public void buildMap() {
 
 
-        Room room1 = new Room("Room 1.","- A cave like room with nothing in it, the bedrock flooring is tiled and the walls spiky\\n\" +\n" +
+        Room room1 = new Room("Room 1.", "- A cave like room with nothing in it, the bedrock flooring is tiled and the walls spiky\\n\" +\n" +
                 "\"Some of the spikes have dead bodies or pierced skulls on them and there are two doors well lit by a torch on each side.");
         Room room2 = new Room("Room 2", "description of room 2");
         Room room3 = new Room("Room3", "description of room 3");
@@ -21,71 +21,74 @@ public class Map {
 
         theFirstRoom = room1;
 
-        room1.setNorthAdjacentRoom(null);
-        room1.setSouthAdjacentRoom(room4);
-        room1.setEastAdjacentRoom(room2);
-        room1.setWestAdjacentRoom(null);
+        room1.setNorth(null);
+        room1.setSouth(room4);
+        room1.setEast(room2);
+        room1.setWest(null);
 
-        room2.setNorthAdjacentRoom(null);
-        room2.setSouthAdjacentRoom(null);
-        room2.setEastAdjacentRoom(room3);
-        room2.setWestAdjacentRoom(room1);
+        room2.setNorth(null);
+        room2.setSouth(null);
+        room2.setEast(room3);
+        room2.setWest(room1);
 
-        room3.setNorthAdjacentRoom(null);
-        room3.setSouthAdjacentRoom(room6);
-        room3.setEastAdjacentRoom(null);
-        room3.setWestAdjacentRoom(room2);
+        room3.setNorth(null);
+        room3.setSouth(room6);
+        room3.setEast(null);
+        room3.setWest(room2);
 
-        room4.setNorthAdjacentRoom(room1);
-        room4.setSouthAdjacentRoom(room7);
-        room4.setEastAdjacentRoom(null);
-        room4.setWestAdjacentRoom(null);
+        room4.setNorth(room1);
+        room4.setSouth(room7);
+        room4.setEast(null);
+        room4.setWest(null);
 
-        room5.setNorthAdjacentRoom(null);
-        room5.setSouthAdjacentRoom(room8);
-        room5.setEastAdjacentRoom(null);
-        room5.setWestAdjacentRoom(null);
+        room5.setNorth(null);
+        room5.setSouth(room8);
+        room5.setEast(null);
+        room5.setWest(null);
 
-        room6.setNorthAdjacentRoom(room3);
-        room6.setSouthAdjacentRoom(room9);
-        room6.setEastAdjacentRoom(null);
-        room6.setWestAdjacentRoom(null);
+        room6.setNorth(room3);
+        room6.setSouth(room9);
+        room6.setEast(null);
+        room6.setWest(null);
 
-        room7.setNorthAdjacentRoom(room4);
-        room7.setSouthAdjacentRoom(null);
-        room7.setEastAdjacentRoom(room8);
-        room7.setWestAdjacentRoom(null);
+        room7.setNorth(room4);
+        room7.setSouth(null);
+        room7.setEast(room8);
+        room7.setWest(null);
 
-        room8.setNorthAdjacentRoom(room5);
-        room8.setSouthAdjacentRoom(null);
-        room8.setEastAdjacentRoom(room9);
-        room8.setWestAdjacentRoom(room7);
+        room8.setNorth(room5);
+        room8.setSouth(null);
+        room8.setEast(room9);
+        room8.setWest(room7);
 
-        room9.setNorthAdjacentRoom(room6);
-        room9.setSouthAdjacentRoom(null);
-        room9.setEastAdjacentRoom(null);
-        room9.setWestAdjacentRoom(room8);
+        room9.setNorth(room6);
+        room9.setSouth(null);
+        room9.setEast(null);
+        room9.setWest(room8);
 
-        room2.addItem("Soul of Envy", " - A deep green soul that symbolizes the sin of envy.");
-        room2.addFood("Green pill", " - A menacing green pill", -1);
+        room1.addRangedWeapon("Pebble", " - Small rock that can be thrown.", -2, 10);
 
-        room3.addItem("Soul of Pride", " - A gloomy violet soul that symbolizes the sin of pride.");
-        room3.addFood("violet pill", " - A menacing violet pill", -3);
+        room2.addItem("SoulOfEnvy", " - A deep green soul that symbolizes the sin of envy.");
+        room2.addFood("GreenPill", " - A menacing green pill", -1);
 
-        room4.addItem("Soul of Wrath", " - A gloomy violet soul that symbolizes the sin of wrath.");
-        room4.addFood("Red pill", " - A menacing red pill", 1);
+        room3.addItem("SoulOfPride", " - A gloomy violet soul that symbolizes the sin of pride.");
+        room3.addFood("VioletPill", " - A menacing violet pill", -3);
 
-        room6.addItem("Soul of Sloth", " - A bright blue soul that symbolizes the sin of sloth.");
-        room6.addFood("Azure pill", " - A menacing azure pill", 2);
+        room4.addItem("SoulOfWrath", " - A gloomy violet soul that symbolizes the sin of wrath.");
+        room4.addFood("RedPill", " - A menacing red pill", 1);
+        room4.addMeleeWeapon("Shiv", " - Small knife", -4);
 
-        room7.addItem("Soul of Lust", " - A dark blue soul that symbolizes the sin of lust.");
-        room7.addFood("Blue pill", " - A menacing blue pill", 2);
+        room6.addItem("SoulOfSloth", " - A bright blue soul that symbolizes the sin of sloth.");
+        room6.addFood("AzurePill", " - A menacing azure pill", 2);
 
-        room8.addItem("Soul of Greed", " - A bright yellow soul that symbolizes the sin of greed.");
-        room8.addFood("Yellow pill", " - A menacing yellow pill", -2);
+        room7.addItem("SoulOfLust", " - A dark blue soul that symbolizes the sin of lust.");
+        room7.addFood("BluePill", " - A menacing blue pill", 2);
 
-        room9.addItem("Soul of Gluttony", " - A deep orange soul that symbolizes the sin of gluttony.");
-        room9.addFood("Orange pill", " - A menacing Orange pill", 1);
+        room8.addItem("SoulOfGreed", " - A bright yellow soul that symbolizes the sin of greed.");
+        room8.addFood("YellowPill", " - A menacing yellow pill", -2);
+
+        room9.addItem("SoulOfGluttony", " - A deep orange soul that symbolizes the sin of gluttony.");
+        room9.addFood("OrangePill", " - A menacing Orange pill", 1);
     }
 
     public Room getTheFirstRoom() {

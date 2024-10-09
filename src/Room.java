@@ -4,10 +4,10 @@ public class Room {
 
     private String roomName;
     private String roomDescription;
-    private Room northAdjacentRoom;
-    private Room southAdjacentRoom;
-    private Room eastAdjacentRoom;
-    private Room westAdjacentRoom;
+    private Room north;
+    private Room south;
+    private Room east;
+    private Room west;
 
     private ArrayList<Item> itemList = new ArrayList<>();
 
@@ -16,36 +16,36 @@ public class Room {
         this.roomDescription = roomDescription;
     }
 
-    public Room getNorthAdjacentRoom() {
-        return northAdjacentRoom;
+    public Room getNorth() {
+        return north;
     }
 
-    public void setNorthAdjacentRoom(Room northAdjacentRoom) {
-        this.northAdjacentRoom = northAdjacentRoom;
+    public void setNorth(Room north) {
+        this.north = north;
     }
 
-    public Room getSouthAdjacentRoom() {
-        return southAdjacentRoom;
+    public Room getSouth() {
+        return south;
     }
 
-    public void setSouthAdjacentRoom(Room southAdjacentRoom) {
-        this.southAdjacentRoom = southAdjacentRoom;
+    public void setSouth(Room south) {
+        this.south = south;
     }
 
-    public Room getEastAdjacentRoom() {
-        return eastAdjacentRoom;
+    public Room getEast() {
+        return east;
     }
 
-    public void setEastAdjacentRoom(Room eastAdjacentRoom) {
-        this.eastAdjacentRoom = eastAdjacentRoom;
+    public void setEast(Room east) {
+        this.east = east;
     }
 
-    public Room getWestAdjacentRoom() {
-        return westAdjacentRoom;
+    public Room getWest() {
+        return west;
     }
 
-    public void setWestAdjacentRoom(Room westAdjacentRoom) {
-        this.westAdjacentRoom = westAdjacentRoom;
+    public void setWest(Room west) {
+        this.west = west;
     }
 
     public String getRoomName() {
@@ -60,16 +60,25 @@ public class Room {
         itemList.add(new Item(item, itemDescription));
     }
 
-    public void addItem(Item item){
+    public void addItem(Item item) {
         itemList.add(item);
     }
 
-    public void addFood(String food, String foodDescription, int healthPoints){
-        itemList.add(new Food(food,foodDescription,healthPoints));
+    public void addFood(String food, String foodDescription, int healthPoints) {
+        itemList.add(new Food(food, foodDescription, healthPoints));
     }
 
-    public Item findItemInRoom(String takeItem){
-        for(Item item:itemList) {
+    public void addMeleeWeapon(String weaponName, String weaponDescription, int healthPoints) {
+        itemList.add(new MeleeWeapon(weaponName, weaponDescription, healthPoints));
+    }
+
+    public void addRangedWeapon(String weaponName, String weaponDescription, int healthPoints, int uses) {
+        itemList.add(new RangedWeapon(weaponName, weaponDescription, healthPoints, uses));
+    }
+
+
+    public Item findItemInRoom(String takeItem) {
+        for (Item item : itemList) {
             if (item.getItem().equalsIgnoreCase(takeItem)) {
                 return item;
             }
@@ -77,7 +86,7 @@ public class Room {
         return null;
     }
 
-    public void removeItemFromList(Item item){
+    public void removeItemFromList(Item item) {
         itemList.remove(item);
     }
 

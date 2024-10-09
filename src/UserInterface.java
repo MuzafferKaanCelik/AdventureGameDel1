@@ -16,7 +16,8 @@ public class UserInterface {
 
         Scanner input = new Scanner(System.in);
 
-        String userinput;
+        String userinput = "";
+
         System.out.println("Welcome to Jack Hellscape!");
         System.out.println();
         System.out.println("""
@@ -91,7 +92,7 @@ public class UserInterface {
         System.out.println();
         System.out.print("Type Start to begin>");
 
-        userinput = "";
+        userinput = " ";
         while (!userinput.equalsIgnoreCase("EXIT")) {
             userinput = input.nextLine();
             String[] commandUserInput = userinput.split(" ");
@@ -128,10 +129,10 @@ public class UserInterface {
                             'EAT' - to eat an item in the current room or from your inventory.""");
                     break;
                 case "eat", "EAT", "Eat", "e":
-                    foodToEat isItFood = adventure.canJackEat(commandUserInput[1] + " " + commandUserInput[2]);
+                    foodToEat isItFood = adventure.canJackEat(commandUserInput[1]);
                     switch (isItFood) {
                         case EDIBLE:
-                            System.out.println("You take the " + commandUserInput[1] + " " + commandUserInput[2]);
+                            System.out.println("You take the " + commandUserInput[1]);
                             break;
                         case NOT_FOUND:
                             System.out.println("No food in the room or inventory");
@@ -146,23 +147,23 @@ public class UserInterface {
                     break;
                 case "take", "TAKE", "t", "Take":
                     if (adventure.takeItem(commandUserInput[1])) {
-                        System.out.println("You pick up the " + commandUserInput[1] + " " + commandUserInput[2] + " " + commandUserInput[3] + " from the room");
+                        System.out.println("You pick up the " + commandUserInput[1] + " from the room");
                     } else {
-                        System.out.println("theres no " + commandUserInput[1] + " " + commandUserInput[2] + " " + commandUserInput[3] + " in the room");
+                        System.out.println("theres no " + commandUserInput[1] + " in the room");
                     }
                     break;
                 case "drop", "DROP", "d", "Drop":
                     if (adventure.dropItem(commandUserInput[1])) {
-                        System.out.println("you drop the " + commandUserInput[1] + " " + commandUserInput[2] + " " + commandUserInput[3] + " in " + adventure.getCurrentRoomName());
+                        System.out.println("you drop the " + commandUserInput[1] + " in " + adventure.getCurrentRoomName());
                     } else {
-                        System.out.println("you don't have a " + commandUserInput[1] + " " + commandUserInput[2] + " " + commandUserInput[3] + " in your inventory");
+                        System.out.println("you don't have a " + commandUserInput[1] + " in your inventory");
                     }
                     break;
                 case "inventory", "inv", "i", "INVENTORY":
                     System.out.println(adventure.findItem());
                     break;
                 case "go":
-                    if (adventure.canJackMove(commandUserInput[1])) {
+                    if (adventure.canJackMove(commandUserInput[1]) == true) {
                         adventure.moveJackToRoom(commandUserInput[1]);
                         System.out.println("you go " + commandUserInput[1]);
                     } else {
@@ -171,38 +172,21 @@ public class UserInterface {
                     System.out.println(adventure.getCurrentRoomDetails());
                     break;
                 case "attack", "ATTACK", "Attack", "a":
-                    String attackResult = adventure.attack();
-                    System.out.println(attackResult);
+                    System.out.println(adventure.attack());
                     break;
                 case "equip", "EQUIP", "Equip", "eq":
-                    if (commandUserInput.length > 1) {
-                        String itemToEquip = commandUserInput[1];
-
-                        WeaponsToUse equipResult = Player.equip(itemToEquip);
-                        switch (equipResult) {
-                            case WEAPON:
-                                System.out.println("You have equipped the " + itemToEquip + " as your weapon.");
-                                break;
-                            case NOT_IN_INVENTORY:
-                                System.out.println("You do not have a " + itemToEquip + " in your inventory.");
-                                break;
-                            case NOT_WEAPON:
-                                System.out.println("The item " + itemToEquip + " is not a weapon and cannot be equipped.");
-                                break;
-                            default:
-                                System.out.println("An unknown error occurred while trying to equip the item.");
-                                break;
-                        }
-                    } else {
-                        System.out.println("Please specify the item you want to equip.");
-                    }
+                    System.out.println(adventure.equipWeapon(commandUserInput[1]));
                     break;
+                case "change", "CHANGE", "c", "Change":
+                    System.out.println(adventure.changeWeapon(commandUserInput[1]));
                 case "EXIT":
                     break;
                 default:
                     System.out.println("Invalid command. Type 'HELP' or 'h' for a list of possible commands.");
             }
-            if (adventure.getJack().getHitPoints() <= 0) {
+            if (adventure.getJack().
+
+                    getHitPoints() <= 0) {
                 System.out.println("-YOU FACE DOOM! GOOD LUCK IN YOUR NEXT DEATH!");
                 break;
             }

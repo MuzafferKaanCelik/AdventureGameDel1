@@ -4,7 +4,6 @@ public class Adventure {
     private final Player Jack;
 
 
-
     public Adventure() {
         map = new Map();
         Jack = new Player(map.getTheFirstRoom());
@@ -26,7 +25,7 @@ public class Adventure {
         return Jack.jackEats(food);
     }
 
-    public String jackHealth(){
+    public String jackHealth() {
         return Jack.jackHealth();
     }
 
@@ -45,29 +44,33 @@ public class Adventure {
     public String findItem() {
         return Jack.findItem();
     }
-    public Player getJack(){
+
+    public Player getJack() {
         return Jack;
     }
-    public Item seeCurrentEquipped(){
-        return Player.getCurrentEquipped();
+
+    public Weapon getCurrentWeapon() {
+        return Jack.getCurrentWeapon();
     }
 
-    public String equip(String itemName){
-        WeaponsToUse status = Player.equip(itemName);
-        return switch (status){
-            case WEAPON -> "You have equipped: " + itemName + Player.getCurrentEquipped();
-            case NOT_WEAPON -> "You can not equip that";
-            case NOT_IN_INVENTORY -> "You do not have that in your inventory";
-            default -> "Invalid command";
-        };
+    public String equipWeapon(String weapon) {
+        return Jack.equipWeapon(weapon);
     }
-    public String attack(){
-        WeaponsToUse status = Player.attack();
-        return switch (status){
-            case NOT_EQUIPPED -> "You do not have anything equipped and therefore can not attack";
-            case EQUIPPED -> "You attack "+ seeCurrentEquipped().getItem();
-            case NO_AMMO -> "You have no ammo";
-            default -> "Invalid command";
-        };
+
+    public String attack() {
+        return Jack.attack();
+    }
+
+
+    public boolean dropWeapon(String itemToDrop) {
+        return Jack.dropWeapon(itemToDrop);
+    }
+
+
+    public String changeWeapon(String weaponName) {
+        return Jack.changeWeapon(weaponName);
     }
 }
+
+
+

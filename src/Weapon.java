@@ -1,19 +1,28 @@
 public abstract class Weapon extends Item {
-    private String name;
-    private int damage;
 
-    public Weapon(String name, String description, int damage){
-        super(name,description);
-        this.damage = damage;
-    }
-    public abstract boolean canEquip();
-    public abstract void equip();
+    private int damagePoints;
+    private int uses;
+    private int remainingUses;
 
-    public String getName(){
-        return name;
+
+    abstract Item weapon(String weaponName, String weaponDescription, int damagePoints);
+
+
+    public Weapon(String weaponName, String weaponDescription) {
+        super(weaponName, weaponDescription);
+        this.damagePoints = damagePoints;
     }
-    public int getDamage(){
-        return damage;
+
+    public int getDamagePoints() {
+        return damagePoints;
+    }
+
+
+//(fx remainingUses() eller canUse() ) der så overrides i RangedWeapon.
+
+    public int remainingUses() {
+        remainingUses = uses - 1;
+        return remainingUses;
     }
 
 }

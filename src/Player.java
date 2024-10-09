@@ -3,26 +3,19 @@ import java.util.ArrayList;
 public class Player {
     private Room theRoomIamIn;
     private static ArrayList<Item> inventory = new ArrayList<>();
-    private static ArrayList<Item> equipped = new ArrayList<>();
-    public static Weapon currentEquipped;
     private int jackHitPoints;
+    private Weapon currentWeapon;
 
     public Player(Room firstRoom) {
         theRoomIamIn = firstRoom;
         jackHitPoints = 1;
+        currentWeapon = null;
     }
 
     public void setJackOverHeal(int newOverHeal) {
         this.jackHitPoints = Math.min(newOverHeal, 3);
     }
 
-    public ArrayList<Item> getEquipped() {
-        return equipped;
-    }
-
-    public static Item getCurrentEquipped() {
-        return currentEquipped;
-    }
 
     public String jackHealth() {
         if (this.jackHitPoints == 1) {
@@ -46,7 +39,7 @@ public class Player {
         return null;
     }
 
-    public  void removeFromInventory(Item itemToEat) {
+    public void removeFromInventory(Item itemToEat) {
         inventory.remove(itemToEat);
     }
 
@@ -75,13 +68,13 @@ public class Player {
     public boolean canMove(String direction) {
         switch (direction) {
             case "north":
-                return theRoomIamIn.getNorthAdjacentRoom() != null;
+                return theRoomIamIn.getNorth() != null;
             case "south":
-                return theRoomIamIn.getSouthAdjacentRoom() != null;
+                return theRoomIamIn.getSouth() != null;
             case "east":
-                return theRoomIamIn.getEastAdjacentRoom() != null;
+                return theRoomIamIn.getEast() != null;
             case "west":
-                return theRoomIamIn.getWestAdjacentRoom() != null;
+                return theRoomIamIn.getWest() != null;
             default:
                 return false;
         }
@@ -89,13 +82,13 @@ public class Player {
 
     public void moveToRoom(String direction) {
         if (direction.equalsIgnoreCase("north")) {
-            theRoomIamIn = theRoomIamIn.getNorthAdjacentRoom();
+            theRoomIamIn = theRoomIamIn.getNorth();
         } else if (direction.equalsIgnoreCase("south")) {
-            theRoomIamIn = theRoomIamIn.getSouthAdjacentRoom();
+            theRoomIamIn = theRoomIamIn.getSouth();
         } else if (direction.equalsIgnoreCase("east")) {
-            theRoomIamIn = theRoomIamIn.getEastAdjacentRoom();
+            theRoomIamIn = theRoomIamIn.getEast();
         } else if (direction.equalsIgnoreCase("west")) {
-            theRoomIamIn = theRoomIamIn.getWestAdjacentRoom();
+            theRoomIamIn = theRoomIamIn.getWest();
         }
     }
 
@@ -149,35 +142,60 @@ public class Player {
         return jackHitPoints;
     }
 
-    public static WeaponsToUse equip (String weaponName) {
-        Item weaponEquip = findItemInInventory(weaponName);
-        if (weaponEquip == null) {
-            return WeaponsToUse.NOT_IN_INVENTORY;
-
-
-        }
-        if (weaponEquip instanceof Weapon) {
-            Weapon weapon = (Weapon) weaponEquip;
-            inventory.remove(weapon);
-            equipped.add(weapon);
-            currentEquipped = weapon;
-            return WeaponsToUse.WEAPON;
-        } else if (!(weaponEquip instanceof Weapon)) {
-            return WeaponsToUse.NOT_WEAPON;
-        }
-        return WeaponsToUse.NOT_WEAPON;
-    }
-
-    public static WeaponsToUse attack() {
-        Weapon weapon = currentEquipped;
-        if (weapon == null) {
-            return WeaponsToUse.NOT_EQUIPPED;
-        } else if (weapon.canEquip()) {
-            weapon.equip();
-            return WeaponsToUse.EQUIPPED;
+    public String equipWeapon(String weapon) {
+        Item itemToEquip = findItemInInventory(weapon);
+        if (itemToEquip == null) {
+            return weapon + " is not in inventory";
+        } else if (itemToEquip instanceof Weapon) {
+            currentWeapon = ((Weapon) itemToEquip);
+            inventory.remove(itemToEquip);
+            return "you equip yourself with " + weapon;
         } else {
-            return WeaponsToUse.NO_AMMO;
+            return "that's not a weapon";
         }
     }
-}
 
+    public String attack() {
+        Item itemToAttackWith = currentWeapon;
+        if (itemToAttackWith == null) {
+            return "you are not equipped with a weapon";
+        } else if (itemToAttackWith instanceof RangedWeapon) {
+            currentWeapon.remainingUses();
+            return "you attack with your " + currentWeapon.getItem() + ", you used one of your ammos in this weapon.";
+        } else {
+            return "you attack the enemy with your " + currentWeapon.getItem();
+        }
+    }
+
+    public boolean useWeapon() {
+        return useWeapon();
+    }
+
+    public Weapon getCurrentWeapon() {
+        return currentWeapon;
+    }
+
+
+    public boolean dropWeapon(String itemToDrop) {
+        if (currentWeapon == null || !currentWeapon.getItem().equalsIgnoreCase(itemToDrop)) {
+            return false;
+        }
+
+        theRoomIamIn.addItem(currentWeapon);
+        currentWeapon = null;
+        return true;
+    }
+
+
+    public String changeWeapon(String newWeaponName) {
+        if (currentWeapon != null) {
+            inventory.add(currentWeapon);
+            System.out.println(currentWeapon.getItem() + " was added to your inventory.");
+        } else {
+            return "you're not equipped with a weapon";
+        }
+        return " ";
+    }
+
+
+}
