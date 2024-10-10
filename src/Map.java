@@ -10,14 +10,14 @@ public class Map {
 
         Room room1 = new Room("Room 1.", "- A cave like room with nothing in it, the bedrock flooring is tiled and the walls spiky\\n\" +\n" +
                 "\"Some of the spikes have dead bodies or pierced skulls on them and there are two doors well lit by a torch on each side.");
-        Room room2 = new Room("Room 2", "description of room 2");
-        Room room3 = new Room("Room3", "description of room 3");
-        Room room4 = new Room("Room 4", "description of room 4");
-        Room room5 = new Room("Room 5", "description of room 5");
-        Room room6 = new Room("Room 6", "description of room 6");
-        Room room7 = new Room("Room 7", "description of room 7");
-        Room room8 = new Room("Room 8", "description of room 8");
-        Room room9 = new Room("Room 9", "description of room 9");
+        Room room2 = new Room("Room 2", "Room of Envy: You are to test yourself in an envious task.");
+        Room room3 = new Room("Room3", "Room of Pride: Test you pride with a task that is hurtful to your self image.");
+        Room room4 = new Room("Room 4", "Room of Wrath: Test yourself against the enemies of hell.");
+        Room room5 = new Room("Room 5", "This is the kings den: Here slumbers the king of hell and he takes no interruptions lightly.");
+        Room room6 = new Room("Room 6", "Room of Sloth: Why are you so sleepy all of a sudden? you might just have to lay down.");
+        Room room7 = new Room("Room 7", "Room of Lust: Ooo a pretty woman, can you withstand her seduction?");
+        Room room8 = new Room("Room 8", "Room of Greed: Now that's a lot of money, ya sure ya don't want some?");
+        Room room9 = new Room("Room 9", "Room of Gluttony: Truly a meal fit for a king, That table has it all!");
 
         theFirstRoom = room1;
 
@@ -66,7 +66,7 @@ public class Map {
         room9.setEast(null);
         room9.setWest(room8);
 
-        room1.addRangedWeapon("Pebble", " - Small rock that can be thrown.", -2, 10);
+        room1.addRangedWeapon("Pistol", " - Small pistol  .", -2, 10);
 
         room2.addItem("SoulOfEnvy", " - A deep green soul that symbolizes the sin of envy.");
         room2.addFood("GreenPill", " - A menacing green pill", -1);
@@ -79,7 +79,7 @@ public class Map {
         room4.addMeleeWeapon("Shiv", " - Small knife", -4);
 
         room6.addItem("SoulOfSloth", " - A bright blue soul that symbolizes the sin of sloth.");
-        room6.addFood("AzurePill", " - A menacing azure pill", 2);
+        room6.addFood("AzurePill", " - A menacing azure pill", 3);
 
         room7.addItem("SoulOfLust", " - A dark blue soul that symbolizes the sin of lust.");
         room7.addFood("BluePill", " - A menacing blue pill", 2);
@@ -89,6 +89,16 @@ public class Map {
 
         room9.addItem("SoulOfGluttony", " - A deep orange soul that symbolizes the sin of gluttony.");
         room9.addFood("OrangePill", " - A menacing Orange pill", 1);
+
+        Weapon dagger = new MeleeWeapon("dagger"," - Small dagger",-1);
+        Weapon claws = new MeleeWeapon("claws"," - Some enemies have claws",-1);
+        Weapon fireBall = new RangedWeapon("FireBall", " - A bright bolt of fire",-2,7);
+
+        room4.addEnemy("Imp"," - Small demon with a dagger",2,1,dagger);
+        room8.addEnemy("Demon"," - Regular demon with sharp claws",4,1,claws);
+        room5.addEnemy("Satan","It's Satan he need no introduction",12,2,fireBall);
+
+
     }
 
     public Room getTheFirstRoom() {

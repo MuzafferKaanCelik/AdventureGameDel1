@@ -7,11 +7,9 @@ public class MeleeWeapon extends Weapon {
         this.damagePoints = damagePoints;
     }
 
-
     public int getDamagePoints() {
         return damagePoints;
     }
-
 
     @Override
     Item weapon(String weaponName, String weaponDescription, int damagePoints) {

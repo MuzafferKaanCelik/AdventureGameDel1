@@ -13,7 +13,7 @@ public class Player {
     }
 
     public void setJackOverHeal(int newOverHeal) {
-        this.jackHitPoints = Math.min(newOverHeal, 3);
+        this.jackHitPoints = Math.min(newOverHeal, 5);
     }
 
 
@@ -25,7 +25,14 @@ public class Player {
             return this.jackHitPoints + "HP. You can somehow survive a lethal attack that is incredible!";
         } else if (this.jackHitPoints == 3) {
             return this.jackHitPoints + "HP. You have some how been blessed by the gods, even though you are in hell.\n" +
-                    "You can take 2 hits without dying!(The HP limit is 3)";
+                    "(You can take 2 hits without dying!)";
+        } else if (this.jackHitPoints == 4) {
+            return this.jackHitPoints+"HP. You are out of this world quite literally!\n" +
+                    "(You can take 3 hits without dying!)";
+        } else if (this.jackHitPoints == 5) {
+            return this.jackHitPoints+"HP. Even Satan is starting to shiver his timbers.\n" +
+                    " (You can take 4 hits without dying!) (The HP limit is 5";
+
         }
         return null;
     }
@@ -142,6 +149,13 @@ public class Player {
         return jackHitPoints;
     }
 
+    public void takeDamage(int damage){
+        jackHitPoints -= damage;
+        if (jackHitPoints<=0){
+            jackHitPoints=0;
+        }
+    }
+
     public String equipWeapon(String weapon) {
         Item itemToEquip = findItemInInventory(weapon);
         if (itemToEquip == null) {
@@ -149,31 +163,52 @@ public class Player {
         } else if (itemToEquip instanceof Weapon) {
             currentWeapon = ((Weapon) itemToEquip);
             inventory.remove(itemToEquip);
-            return "you equip yourself with " + weapon;
+            return "you equip yourself with the" + weapon;
         } else {
             return "that's not a weapon";
         }
     }
 
-    public String attack() {
+    public String attack(String enemy) {
+        Enemy currentEnemy =theRoomIamIn.findEnemyInRoom(enemy);
+
         Item itemToAttackWith = currentWeapon;
-        if (itemToAttackWith == null) {
-            return "you are not equipped with a weapon";
-        } else if (itemToAttackWith instanceof RangedWeapon) {
-            currentWeapon.remainingUses();
-            return "you attack with your " + currentWeapon.getItem() + ", you used one of your ammos in this weapon.";
-        } else {
-            return "you attack the enemy with your " + currentWeapon.getItem();
+        if (currentEnemy.getEnemyHitPoints() > 0) {
+            if (itemToAttackWith == null) {
+                return "you are not equipped with a weapon";
+            } else if (itemToAttackWith instanceof RangedWeapon) {
+                RangedWeapon rangedWeapon = (RangedWeapon) currentWeapon;
+                currentWeapon.remainingUses();
+                currentEnemy.takeDamage(currentWeapon.getDamagePoints());
+                if (currentEnemy.getEnemyHitPoints() > 0) {
+                    takeDamage(currentEnemy.getEnemyWeapon().getDamagePoints());
+                    return "you attack the " + currentEnemy.getEnemyName() + " with your " + currentWeapon.getItem() + ", you used one of your ammos in this weapon. \nenemies health: " + currentEnemy.getEnemyHitPoints()
+                            + "\nbut they attack you right back afterwards. \nyour health: " + jackHealth();
+                } else {
+                    if (currentEnemy.getEnemyWeapon() != null) {
+                        theRoomIamIn.addWeapon(currentEnemy.getEnemyWeapon());
+                    }
+                    theRoomIamIn.removeEnemy(currentEnemy);
+                    return currentEnemy.getEnemyName() + " is defeated! and left behind a " + currentEnemy.getEnemyWeapon().getItem();
+                }
+            } else if (itemToAttackWith instanceof MeleeWeapon) {
+                currentEnemy.takeDamage(((MeleeWeapon) itemToAttackWith).getDamagePoints());
+                if (currentEnemy.getEnemyHitPoints() > 0) {
+                    takeDamage(currentEnemy.getEnemyWeapon().getDamagePoints());
+                    return "you attack the " + currentEnemy.getEnemyName() + " with your " + itemToAttackWith.getItem()
+                            + "\nenemy's health: " + currentEnemy.getEnemyHitPoints()  + "\nbut they attack you right back afterwards. \nyour health: " + jackHealth();
+                } else {
+                    if (currentEnemy.getEnemyWeapon() != null) {
+                        theRoomIamIn.addWeapon(currentEnemy.getEnemyWeapon());
+                    }
+                    theRoomIamIn.removeEnemy(currentEnemy);
+                    return currentEnemy.getEnemyName() + " is defeated! and left behind a " + currentEnemy.getEnemyWeapon().getItem();
+                }
+            }
         }
+        return currentEnemy.getEnemyName() + " is already defeated";
     }
 
-    public boolean useWeapon() {
-        return useWeapon();
-    }
-
-    public Weapon getCurrentWeapon() {
-        return currentWeapon;
-    }
 
 
     public boolean dropWeapon(String itemToDrop) {
@@ -196,6 +231,4 @@ public class Player {
         }
         return " ";
     }
-
-
 }

@@ -49,25 +49,19 @@ public class Adventure {
         return Jack;
     }
 
-    public Weapon getCurrentWeapon() {
-        return Jack.getCurrentWeapon();
-    }
-
-    public String equipWeapon(String weapon) {
+    public String equipWeapon(String weapon){
         return Jack.equipWeapon(weapon);
     }
 
-    public String attack() {
-        return Jack.attack();
+    public String attack(String enemy){
+        return Jack.attack(enemy);
     }
-
 
     public boolean dropWeapon(String itemToDrop) {
         return Jack.dropWeapon(itemToDrop);
     }
 
-
-    public String changeWeapon(String weaponName) {
+    public String changeWeapon(String weaponName){
         return Jack.changeWeapon(weaponName);
     }
 }

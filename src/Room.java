@@ -8,8 +8,10 @@ public class Room {
     private Room south;
     private Room east;
     private Room west;
+    private Enemy currentEnemy;
 
     private ArrayList<Item> itemList = new ArrayList<>();
+    private ArrayList<Enemy>enemyList = new ArrayList();
 
     public Room(String roomName, String roomDescription) {
         this.roomName = roomName;
@@ -76,6 +78,12 @@ public class Room {
         itemList.add(new RangedWeapon(weaponName, weaponDescription, healthPoints, uses));
     }
 
+    public void addWeapon(Weapon weapon){
+        if (weapon != null){
+            itemList.add(weapon);
+        }
+    }
+
 
     public Item findItemInRoom(String takeItem) {
         for (Item item : itemList) {
@@ -90,15 +98,37 @@ public class Room {
         itemList.remove(item);
     }
 
+    public void addEnemy(String enemyName, String enemyDescription, int enemyHealthPoints, int damageAlice, Weapon enemyWeapon){
+        enemyList.add(new Enemy(enemyName,enemyDescription,enemyHealthPoints, damageAlice, enemyWeapon));
+    }
+    public Enemy findEnemyInRoom(String fightEnemy) {
+        for (Enemy enemy : enemyList) {
+            if (enemy.getEnemyName().equalsIgnoreCase(fightEnemy)) {
+                return enemy;
+            }
+        }
+        return null;
+    }
+    public void removeEnemy(Enemy enemy){
+        enemyList.remove(enemy);
+    }
+
     @Override
     public String toString() {
         String variabel;
         int counter = 1;
         variabel = getRoomName() + ", " + getRoomDescription();
         if (!itemList.isEmpty()) {
-            variabel += "\nthe items are ";
+            variabel += "\n You see these items: ";
             for (Item currentItem : itemList) {
                 variabel += "\n" + counter++ + ". " + currentItem.getItem() + currentItem.getItemDescription();
+            }
+        }
+
+        if (!enemyList.isEmpty()) {
+            variabel += "\nan enemy appears! ";
+            for (Enemy currentEnemy : enemyList) {
+                variabel += currentEnemy.getEnemyName() + "\n" + currentEnemy.getEnemyDescription();
             }
         }
         return variabel;

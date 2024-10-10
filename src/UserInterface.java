@@ -86,7 +86,13 @@ public class UserInterface {
                 
                 'HEALTH' - to see your health in the game.\
                 
-                'EAT' - to eat an item in the current room or from your inventory.""");
+                'EAT' - to eat an item in the current room or from your inventory.\
+                
+                'EQUIP' to equip a weapon from your inventory.\
+                
+                'CHANGE + WEAPON' equip another weapon from your inventory and put your current in it.\
+                
+                'ATTACK + Enemy' to attack an enemy.""");
         System.out.println();
         System.out.println("Jack finds himself in room 1.");
         System.out.println();
@@ -102,6 +108,7 @@ public class UserInterface {
                     break;
                 case "look", "LOOK", "l", "Look":
                     System.out.println(adventure.getCurrentRoomDetails());
+
                     break;
                 case "help", "HELP", "h", "Help":
                     System.out.println(""" 
@@ -126,7 +133,13 @@ public class UserInterface {
                             
                             'HEALTH' - to see your health in the game.\
                             
-                            'EAT' - to eat an item in the current room or from your inventory.""");
+                            'EAT' - to eat an item in the current room or from your inventory.
+                            
+                            'EQUIP' to equip a weapon from your inventory.\
+                            
+                            'CHANGE + WEAPON' equip another weapon from your inventory and put your current in it.\
+                            
+                            'ATTACK + Enemy' to attack an enemy.""");
                     break;
                 case "eat", "EAT", "Eat", "e":
                     foodToEat isItFood = adventure.canJackEat(commandUserInput[1]);
@@ -172,7 +185,7 @@ public class UserInterface {
                     System.out.println(adventure.getCurrentRoomDetails());
                     break;
                 case "attack", "ATTACK", "Attack", "a":
-                    System.out.println(adventure.attack());
+                    System.out.println(adventure.attack(commandUserInput[1]));
                     break;
                 case "equip", "EQUIP", "Equip", "eq":
                     System.out.println(adventure.equipWeapon(commandUserInput[1]));
